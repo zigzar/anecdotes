@@ -1,9 +1,9 @@
 <template>
-  <div :class="joke.liked ? 'joke joke_liked' : 'joke'">
+  <div :class="liked ? 'joke joke_liked' : 'joke'">
     <div class="joke__text">
       <p>{{ joke.joke }}</p>
     </div>
-    <joke-button class="joke__btn"></joke-button>
+    <joke-button class="joke__btn" @clicked="likeJoke"></joke-button>
   </div>
 </template>
 
@@ -17,6 +17,17 @@ export default {
     joke: {
       type: Object,
       required: true,
+    },
+  },
+  data() {
+    return {
+      liked: this.joke.liked,
+    }
+  },
+  methods: {
+    likeJoke() {
+      this.liked = !this.liked
+      
     },
   },
 }
