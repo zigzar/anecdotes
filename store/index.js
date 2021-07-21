@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const state = () => ({
   jokes: [],
+  likedJokes: [],
   jokesLimit: 10,
   searchQuery: '',
 })
@@ -15,6 +16,9 @@ export const getters = {
       item.joke.toLowerCase().includes(state.searchQuery.toLowerCase())
     )
   },
+  getLikedJokes(state) {
+    return [...state.likedJokes]
+  },
 }
 
 export const mutations = {
@@ -23,6 +27,13 @@ export const mutations = {
   },
   setSearchQuery(state, searchQuery) {
     state.searchQuery = searchQuery
+  },
+  updateLikedJokes(state, likedJokes) {
+    state.likedJokes = likedJokes
+    localStorage.setItem('likedJokes', JSON.stringify(likedJokes))
+  },
+  setLikedJokes(state) {
+    state.likedJokes = JSON.parse(localStorage.getItem('likedJokes'))
   },
 }
 
@@ -42,5 +53,18 @@ export const actions = {
       return
     }
     await commit('setJokes', data.jokes)
+  },
+  async addLikedJoke({ getters, commit }, joke) {
+    let arr = this.getters.getLikedJokes
+    arr.push(joke)
+    await this.commit('updateLikedJokes', arr)
+  },
+  async removeLikedJoke({ getters, commit }, joke) {
+    let arr = this.getters.getLikedJokes
+    let index = arr.findIndex((item) => item.id == joke.id)
+    if (index != -1) {
+      arr.splice(index, 1)
+      await this.commit('updateLikedJokes', arr)
+    }
   },
 }

@@ -25,9 +25,11 @@ export default {
     }
   },
   methods: {
-    likeJoke() {
+    async likeJoke() {
       this.liked = !this.liked
-      
+      this.liked
+        ? await this.$store.dispatch('addLikedJoke', this.joke)
+        : await this.$store.dispatch('removeLikedJoke', this.joke)
     },
   },
 }
