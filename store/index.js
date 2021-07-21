@@ -27,6 +27,6 @@ export const actions = {
       alert('Sry, we have some troubles with API')
       return
     }
-    commit('setJokes', data.jokes)
+    await commit('setJokes', data.jokes)
   },
 }

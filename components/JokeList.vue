@@ -1,12 +1,6 @@
 <template>
   <div class="joke-list">
-    <joke></joke>
-    <joke></joke>
-    <joke></joke>
-    <joke></joke>
-    <joke></joke>
-    <joke></joke>
-    <joke></joke>
+    <joke v-for="joke in jokes" :joke="joke" :key="joke.id"></joke>
   </div>
 </template>
 
@@ -15,6 +9,12 @@ import Joke from '@/components/Joke.vue'
 export default {
   components: {
     Joke,
+  },
+  props: {
+    jokes: {
+      type: Array,
+      required: true,
+    },
   },
 }
 </script>
