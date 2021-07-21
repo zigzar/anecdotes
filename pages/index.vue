@@ -3,8 +3,10 @@
     <joke-input
       class="search"
       placeholder="Введите слово для поиска среди анекдотов ..."
+      :modelValue="searchQuery"
+      @update:modelValue="setSearchQuery"
     ></joke-input>
-    <joke-list :jokes="jokes"></joke-list>
+    <joke-list :jokes="getSearchedJokes"></joke-list>
   </div>
 </template>
 
@@ -19,12 +21,14 @@ export default {
   },
   methods: {
     ...mapActions(['fetch']),
+    ...mapMutations(['setSearchQuery']),
   },
   computed: {
     ...mapState({
       jokes: (state) => state.jokes,
+      searchQuery: (state) => state.searchQuery,
     }),
-    ...mapGetters({}),
+    ...mapGetters(['getSearchedJokes']),
   },
   mounted() {
     this.fetch()
