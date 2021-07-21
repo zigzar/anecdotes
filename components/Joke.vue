@@ -1,7 +1,9 @@
 <template>
   <div :class="liked ? 'joke joke_liked' : 'joke'">
     <div class="joke__text">
-      <p>{{ joke.joke }}</p>
+      <p v-if="joke.joke">{{ joke.joke }}</p>
+      <p v-if="joke.setup">{{ joke.setup }}</p>
+      <p v-if="joke.delivery">{{ joke.delivery }}</p>
     </div>
     <joke-button class="joke__btn" @clicked="likeJoke"></joke-button>
   </div>
@@ -44,6 +46,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   border: 2px solid #333;
+  transition: 0.1s;
 }
 
 .joke_liked {

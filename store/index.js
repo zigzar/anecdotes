@@ -12,9 +12,15 @@ export const getters = {
     return [...state.jokes]
   },
   getSearchedJokes(state, getters) {
-    return getters.getJokes.filter((item) =>
-      item.joke.toLowerCase().includes(state.searchQuery.toLowerCase())
-    )
+    return getters.getJokes.filter((item) => {
+      if (item.type == 'single')
+        return item.joke.toLowerCase().includes(state.searchQuery.toLowerCase())
+      else
+        return (
+          item.setup.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+          item.delivery.toLowerCase().includes(state.searchQuery.toLowerCase())
+        )
+    })
   },
   getLikedJokes(state) {
     return [...state.likedJokes]
@@ -44,7 +50,7 @@ export const actions = {
     let response
     try {
       response = await axios.get(
-        ` https://v2.jokeapi.dev/joke/Any?type=single&amount=${state.jokesLimit}`
+        `https://v2.jokeapi.dev/joke/Any?amount=${state.jokesLimit}`
       )
     } catch (error) {
       console.log(`Ошибка при попытке получить шутки. Описание: ${error}`)
