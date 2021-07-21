@@ -5,7 +5,11 @@
       <p v-if="joke.setup">{{ joke.setup }}</p>
       <p v-if="joke.delivery">{{ joke.delivery }}</p>
     </div>
-    <joke-button class="joke__btn" @clicked="likeJoke"></joke-button>
+    <joke-button
+      class="joke__btn"
+      @clicked="likeJoke"
+      :active="liked"
+    ></joke-button>
   </div>
 </template>
 
