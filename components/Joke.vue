@@ -15,7 +15,11 @@
 </template>
 
 <script>
+import JokeButton from '@/components/UI/JokeButton.vue'
 export default {
+  components: {
+    JokeButton,
+  },
   props: {
     liked: {
       type: Boolean,
@@ -30,8 +34,11 @@ export default {
 .joke {
   padding: 1em;
   display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
   justify-content: space-between;
   align-items: center;
+  border: 2px solid #333;
 }
 
 .joke_liked {
@@ -39,6 +46,7 @@ export default {
 }
 
 .joke__text {
-  min-width: 80%;
+  min-width: 260px;
+  max-width: 80%;
 }
 </style>
