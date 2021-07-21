@@ -14,6 +14,7 @@ export const getters = {
   getSearchedJokes(state, getters) {
     return getters.getJokes.filter((item) => {
       if (item.type == 'single')
+        //TODO: put it in a separate function
         return item.joke.toLowerCase().includes(state.searchQuery.toLowerCase())
       else
         return (
@@ -37,7 +38,6 @@ export const mutations = {
   updateLikedJokes(state, likedJokes) {
     state.likedJokes = likedJokes
     localStorage.setItem('likedJokes', JSON.stringify(likedJokes))
-    console.log(likedJokes)
   },
   setLikedJokes(state) {
     let arr = JSON.parse(localStorage.getItem('likedJokes'))
@@ -61,7 +61,7 @@ export const actions = {
       return
     }
     await commit('setLikedJokes')
-    let likedJokes = await this.getters.getLikedJokes
+    let likedJokes = await this.getters.getLikedJokes //TODO: put it in a separate function
     for (let i = 0; i < data.jokes.length; i++) {
       if (likedJokes.find((item) => item.id == data.jokes[i].id))
         data.jokes[i].liked = true
