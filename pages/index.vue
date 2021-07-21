@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="search"></div>
-    <joke-list class="joke-list"></joke-list>
+    <joke-list></joke-list>
   </div>
 </template>
 
